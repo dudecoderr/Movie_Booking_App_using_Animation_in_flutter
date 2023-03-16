@@ -1,12 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:glassmorphism/glassmorphism.dart';
 import 'package:movie_booking_app/constant/recommended_movie_constant.dart';
 import 'package:movie_booking_app/constant/reviews_constant.dart';
 import 'package:movie_booking_app/constant/string_constant.dart';
 import 'package:movie_booking_app/screens/booking_screen.dart';
-import 'package:movie_booking_app/screens/home_screen.dart';
 import '../constant/horizontal_listview/cast_and_crew_listview.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -31,26 +31,11 @@ class _DetailScreenState extends State<DetailScreen> {
               image: DecorationImage(image: AssetImage(widget.imageList), fit: BoxFit.fill),
             ),
 
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
             /// =================== Glassmorphism Container ===================
-            child: GlassmorphicContainer(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              borderRadius: 0.sp,
-              blur: 30,
-              alignment: Alignment.bottomCenter,
-              border: 2,
-              linearGradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
-                const Color(0xFFffffff).withOpacity(0.1),
-                const Color(0xFFFFFFFF).withOpacity(0.05),
-              ], stops: const [
-                0.1,
-                1
-              ]),
-              borderGradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Colors.transparent, Colors.transparent],
-              ),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 50.0),
 
               /// =================== Column ===================
               child: Column(
@@ -67,22 +52,26 @@ class _DetailScreenState extends State<DetailScreen> {
                       child: Column(
                         children: [
                           /// =================== Back Icon ===================
-                          Padding(
-                            padding: EdgeInsets.only(right: 270.w, top: 40.h),
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const HomeScreen(),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                height: 40.h,
-                                width: 43.w,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.sp), color: Colors.white60),
-                                child: const Icon(Icons.arrow_back_ios_new),
+                          Material(
+                             color: Colors.transparent,
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 270.w, top: 40.h),
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) => const HomeScreen(),
+                                  //   ),
+                                  // );
+                                },
+                                child: Container(
+                                  height: 40.h,
+                                  width: 43.w,
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.sp), color: Colors.white60),
+                                  child: const Icon(Icons.arrow_back_ios_new),
+                                ),
                               ),
                             ),
                           ),
@@ -211,7 +200,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             padding: EdgeInsets.only(left: 10.w),
                             child: const RecommendedMovieConstant(),
                           ),
-                          SizedBox(height: 15.h),
+                          SizedBox(height: 40.h),
                         ],
                       ),
                     ),

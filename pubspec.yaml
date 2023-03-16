@@ -31,7 +31,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  glassmorphism: ^3.0.0
   flutter_screenutil: ^5.6.1
   custom_navigation_bar: ^0.8.2
   carousel_slider: ^4.2.1

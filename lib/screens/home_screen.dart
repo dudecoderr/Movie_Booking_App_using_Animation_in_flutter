@@ -1,10 +1,11 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:ui';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:glassmorphism/glassmorphism.dart';
 import 'package:movie_booking_app/constant/image_constant.dart';
 import 'package:movie_booking_app/constant/string_constant.dart';
 import 'package:movie_booking_app/screens/detail_screen.dart';
@@ -39,34 +40,18 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         /// =================== Background Image ===================
         decoration: const BoxDecoration(
           image: DecorationImage(image: AssetImage(avatarPoster), fit: BoxFit.fill),
         ),
 
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         /// =================== Glassmorphism Container ===================
-        child: GlassmorphicContainer(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          borderRadius: 0.sp,
-          blur: 30,
-          alignment: Alignment.bottomCenter,
-          border: 2,
-          linearGradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
-            const Color(0xFFffffff).withOpacity(0.1),
-            const Color(0xFFFFFFFF).withOpacity(0.05),
-          ], stops: const [
-            0.1,
-            1
-          ]),
-          borderGradient: const LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Colors.transparent, Colors.transparent],
-          ),
-
-          /// =================== Column ===================
+        child: BackdropFilter(
+    filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 50.0),
           child: Column(
             children: [
               Padding(
@@ -181,7 +166,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (context, i, id) {
                     return Hero(
                       tag: imageList[i],
-                      child: GestureDetector(
+                      child: Material(
+                        color: Colors.transparent,
                         child: InkWell(
                           onTap: () {
                             Navigator.push(
@@ -198,10 +184,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         ),
-                        onTap: () {
-                          var url = imageList[i];
-                          print(url.toString());
-                        },
                       ),
                     );
                   },

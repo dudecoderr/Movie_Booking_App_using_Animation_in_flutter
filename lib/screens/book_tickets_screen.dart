@@ -1,8 +1,9 @@
+import 'dart:ui';
+
 import 'package:animated_page_transition/animated_page_transition.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:glassmorphism/glassmorphism.dart';
 import 'package:movie_booking_app/screens/booking_screen.dart';
 import 'package:movie_booking_app/screens/home_screen.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
@@ -27,25 +28,8 @@ class _BookTicketsScreenState extends State<BookTicketsScreen> {
           decoration: BoxDecoration(
             image: DecorationImage(image: AssetImage(widget.imageList), fit: BoxFit.fill),
           ),
-          child: GlassmorphicContainer(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            borderRadius: 0.sp,
-            blur: 30,
-            alignment: Alignment.bottomCenter,
-            border: 2,
-            linearGradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
-              const Color(0xFFffffff).withOpacity(0.1),
-              const Color(0xFFFFFFFF).withOpacity(0.05),
-            ], stops: const [
-              0.1,
-              1
-            ]),
-            borderGradient: const LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [Colors.transparent, Colors.transparent],
-            ),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 50.0),
 
             /// =================== Column ===================
             child: Column(

@@ -1,12 +1,16 @@
+import 'dart:ui';
+
 import 'package:animated_page_transition/animated_page_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:glassmorphism/glassmorphism.dart';
 import 'package:movie_booking_app/constant/horizontal_listview/date_picker.dart';
 import 'package:movie_booking_app/constant/seates.dart';
 import 'package:movie_booking_app/screens/book_tickets_screen.dart';
 import 'package:movie_booking_app/screens/detail_screen.dart';
 import 'package:movie_booking_app/screens/time_picker.dart';
+
+
+
 
 class BookingScreen extends StatefulWidget {
   final String imageList;
@@ -30,25 +34,8 @@ class _BookingScreenState extends State<BookingScreen> with TickerProviderStateM
             image: DecorationImage(image: AssetImage(widget.imageList), fit: BoxFit.fill),
           ),
 
-          child: GlassmorphicContainer(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            borderRadius: 0.sp,
-            blur: 30,
-            alignment: Alignment.bottomCenter,
-            border: 2,
-            linearGradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
-              const Color(0xFFffffff).withOpacity(0.1),
-              const Color(0xFFFFFFFF).withOpacity(0.05),
-            ], stops: const [
-              0.1,
-              1
-            ]),
-            borderGradient: const LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [Colors.transparent, Colors.transparent],
-            ),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 50.0),
 
             /// =================== Column ===================
             child: Padding(
@@ -90,6 +77,7 @@ class _BookingScreenState extends State<BookingScreen> with TickerProviderStateM
 
                   /// =================== Movie Image ===================
                   SizedBox(height: 25.h),
+
                   Container(
                     height: 120.h,
                     width: 300.w,
@@ -189,27 +177,23 @@ class _BookingScreenState extends State<BookingScreen> with TickerProviderStateM
 
                   /// =================== Select Seats ===================
                   SizedBox(height: 15.h),
-                  PageTransitionButton(
-                    vsync: this,
-                    nextPage: BookTicketsScreen(imageList: widget.imageList, movieName: widget.movieName),
-                    child: SizedBox(
-                      height: 55.h,
-                      width: 210.w,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.yellow.shade700,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.sp)),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => BookTicketsScreen(imageList: widget.imageList, movieName: widget.movieName),
-                              ),
-                            );
-                          },
-                          child: Text('Book Tickets', style: TextStyle(color: Colors.black, fontSize: 15.sp))),
-                    ),
+                  SizedBox(
+                    height: 55.h,
+                    width: 210.w,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.yellow.shade700,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.sp)),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BookTicketsScreen(imageList: widget.imageList, movieName: widget.movieName),
+                            ),
+                          );
+                        },
+                        child: Text('Book Tickets', style: TextStyle(color: Colors.black, fontSize: 15.sp))),
                   ),
                   SizedBox(height: 15.h),
                 ],
